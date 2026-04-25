@@ -59,9 +59,15 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     typeof localStorage !== 'undefined' && localStorage.getItem(SIDEBAR_KEY) === '1',
   );
 
-  readonly nav = [
-    { path: 'usuarios', label: 'Usuarios', icon: 'people' },
-  ];
+ readonly nav = [
+  { path: 'usuarios', label: 'Usuarios', icon: 'people' },
+  { path: 'profesores', label: 'Profesores', icon: 'school' },
+  { path: 'estudiantes', label: 'Estudiantes', icon: 'groups' },
+  { path: 'grados', label: 'Grados', icon: 'class' },
+  { path: 'materias', label: 'Materias', icon: 'menu_book' },
+  { path: 'notas', label: 'Notas', icon: 'assignment' },
+  { path: 'periodos', label: 'Periodos', icon: 'calendar_month' },
+];
 
   ngOnInit(): void {
     this.usuarioService.list().subscribe({
