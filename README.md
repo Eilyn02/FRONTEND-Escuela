@@ -267,8 +267,7 @@ Authorization: Bearer <token>
 
 Enlace al video explicativo:
 
-text
-PEGAR_AQUI_EL_ENLACE_DEL_VIDEO
+https://youtu.be/y-eVzgWRpUI
 
 
 En el video se debe evidenciar:
