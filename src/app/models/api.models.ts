@@ -1,171 +1,174 @@
-/** Contratos alineados con `src/api/*.py` del backend FastAPI. */
 /**
- organizar con las entiades de la escuela
+ * Contratos TypeScript alineados con los schemas del backend FastAPI
+ * del proyecto Escuela.
  */
 
+/*
+   Autenticación
+*/
+
+export interface LoginRequest {
+  correo: string;
+  password: string;
+}
+
+export interface TokenResponse {
+  access_token: string;
+  token_type: string;
+}
+
+/* 
+   Usuarios
+*/
+
 export interface UsuarioRead {
-    id_usuario: string;
-    nombre_completo: string;
-    nombre_usuario: string;
-    email: string;
-    rol: string;
-    telefono: string | null;
-    activo: boolean;
-  }
-  
-  export interface UsuarioCreate {
-    nombre_completo: string;
-    nombre_usuario: string;
-    email: string;
-    clave: string;
-    rol: string;
-    telefono?: string | null;
-    activo?: boolean;
-  }
-  
-  export interface UsuarioUpdate {
-    nombre_completo?: string;
-    nombre_usuario?: string;
-    email?: string;
-    clave?: string;
-    rol?: string;
-    telefono?: string | null;
-    activo?: boolean;
-  }
-  
-  export interface CategoriaRead {
-    id_categoria: string;
-    nombre: string;
-    descripcion: string | null;
-    estado: boolean;
-    fecha_creacion: string | null;
-    fecha_edicion: string | null;
-    id_usuario_creacion: string;
-    id_usuario_edita: string | null;
-  }
-  
-  export interface CategoriaCreate {
-    nombre: string;
-    descripcion?: string | null;
-    estado?: boolean;
-    id_usuario_creacion: string;
-  }
-  
-  export interface CategoriaUpdate {
-    nombre?: string;
-    descripcion?: string | null;
-    estado?: boolean;
-    id_usuario_edita: string;
-  }
-  
-  export interface ProductoRead {
-    id_producto: string;
-    id_categoria: string;
-    nombre: string;
-    descripcion: string | null;
-    fecha_creacion: string | null;
-    fecha_edicion: string | null;
-    id_usuario_creacion: string;
-    id_usuario_edita: string | null;
-  }
-  
-  export interface ProductoCreate {
-    id_categoria: string;
-    nombre: string;
-    descripcion?: string | null;
-    id_usuario_creacion: string;
-  }
-  
-  export interface ProductoUpdate {
-    id_categoria?: string;
-    nombre?: string;
-    descripcion?: string | null;
-    id_usuario_edita: string;
-  }
-  
-  export interface PedidoRead {
-    id_pedido: string;
-    id_usuario: string;
-    nombre: string;
-    descripcion: string | null;
-    estado: string | null;
-    fecha_creacion: string | null;
-    fecha_edicion: string | null;
-    id_usuario_creacion: string;
-    id_usuario_edita: string | null;
-  }
-  
-  export interface PedidoCreate {
-    id_usuario: string;
-    nombre: string;
-    descripcion?: string | null;
-    estado?: string | null;
-    id_usuario_creacion: string;
-  }
-  
-  export interface PedidoUpdate {
-    id_usuario?: string;
-    nombre?: string;
-    descripcion?: string | null;
-    estado?: string | null;
-    id_usuario_edita: string;
-  }
-  
-  export interface DetallePedidoRead {
-    id_detalle_pedido: string;
-    id_pedido: string;
-    id_producto: string;
-    nombre: string;
-    descripcion: string | null;
-    estado: string | null;
-  }
-  
-  export interface DetallePedidoCreate {
-    id_pedido: string;
-    id_producto: string;
-    nombre: string;
-    descripcion?: string | null;
-    estado?: string | null;
-  }
-  
-  export interface DetallePedidoUpdate {
-    id_pedido?: string;
-    id_producto?: string;
-    nombre?: string;
-    descripcion?: string | null;
-    estado?: string | null;
-  }
-  
-  export interface PagoRead {
-    id_pago: string;
-    id_pedido: string;
-    nombre: string;
-    descripcion: string | null;
-    estado: string | null;
-    referencia: string;
-    tipo_pago: string;
-    fecha_creacion: string | null;
-    fecha_edicion: string | null;
-    id_usuario_creacion: string;
-    id_usuario_edita: string | null;
-  }
-  
-  export interface PagoCreate {
-    id_pedido: string;
-    nombre: string;
-    descripcion?: string | null;
-    estado?: string | null;
-    referencia: string;
-    tipo_pago: string;
-    id_usuario_creacion: string;
-  }
-  
-  export interface PagoUpdate {
-    id_pedido?: string;
-    nombre?: string;
-    descripcion?: string | null;
-    estado?: string | null;
-    referencia?: string;
-    tipo_pago?: string;
-    id_usuario_edita: string;
-  }
+  id_usuario: number;
+  nombre: string;
+  correo: string;
+  rol: string;
+  activo: boolean;
+}
+
+/* 
+   Profesores
+*/
+
+export interface ProfesorRead {
+  id_profesor: number;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  especialidad: string;
+  telefono: string | null;
+}
+
+export interface ProfesorCreate {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  especialidad: string;
+  telefono?: string | null;
+}
+
+export interface ProfesorUpdate {
+  nombre?: string;
+  apellido?: string;
+  correo?: string;
+  especialidad?: string;
+  telefono?: string | null;
+}
+
+/* 
+   Estudiantes
+ */
+
+export interface EstudianteRead {
+  id_estudiante: number;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  id_grado: number;
+}
+
+export interface EstudianteCreate {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  id_grado: number;
+}
+
+export interface EstudianteUpdate {
+  nombre?: string;
+  apellido?: string;
+  correo?: string;
+  id_grado?: number;
+}
+
+/* 
+   Grados
+ */
+
+export interface GradoRead {
+  id_grado: number;
+  nombre: string;
+}
+
+export interface GradoCreate {
+  nombre: string;
+}
+
+export interface GradoUpdate {
+  nombre?: string;
+}
+
+/* 
+   Materias
+ */
+
+export interface MateriaRead {
+  id_materia: number;
+  nombre: string;
+  id_profesor: number;
+}
+
+export interface MateriaCreate {
+  nombre: string;
+  id_profesor: number;
+}
+
+export interface MateriaUpdate {
+  nombre?: string;
+  id_profesor?: number;
+}
+
+/* 
+   Notas
+ */
+
+export interface NotaRead {
+  id_nota: number;
+  clasificacion: number;
+  id_estudiante: number;
+  id_profesor: number;
+  id_materia: number;
+  id_periodo: number;
+}
+
+export interface NotaCreate {
+  clasificacion: number;
+  id_estudiante: number;
+  id_profesor: number;
+  id_materia: number;
+  id_periodo: number;
+}
+
+export interface NotaUpdate {
+  clasificacion?: number;
+  id_estudiante?: number;
+  id_profesor?: number;
+  id_materia?: number;
+  id_periodo?: number;
+}
+
+/* 
+   Periodos
+ */
+
+export interface PeriodoRead {
+  id_periodo: number;
+  nombre: string;
+  fecha_inicio: string;
+  fecha_fin: string;
+}
+
+export interface PeriodoCreate {
+  nombre: string;
+  fecha_inicio: string;
+  fecha_fin: string;
+}
+
+export interface PeriodoUpdate {
+  nombre?: string;
+  fecha_inicio?: string;
+  fecha_fin?: string;
+}

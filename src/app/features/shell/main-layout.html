@@ -65,17 +65,9 @@
       </button>
       <span class="title">Panel Escolar</span>
       <span class="spacer"></span>
-      <mat-form-field appearance="outline" class="audit-field" subscriptSizing="dynamic">
-        <mat-label>Usuario (auditoría)</mat-label>
-        <mat-select
-          [value]="audit.usuarioId()"
-          (selectionChange)="onUsuarioAudit($event.value)"
-        >
-          @for (u of usuarios(); track u.id_usuario) {
-            <mat-option [value]="u.id_usuario">{{ u.nombre_usuario }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="audit-field">
+        <span>Sesión activa</span>
+      </div>
       <button mat-icon-button type="button" (click)="logout()" aria-label="Cerrar sesión">
         <mat-icon>logout</mat-icon>
       </button>
