@@ -1,26 +1,16 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
-    AfterViewInit,
-    Component,
-    inject,
-    OnInit,
-    signal,
-    ViewChild,
+  AfterViewInit,
+  Component,
+  signal,
+  ViewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-
-import { AuditContextService } from '../../core/audit-context.service';
-import { UsuarioService } from '../../core/services/usuario.service';
-import { UsuarioRead } from '../../models/api.models';
 
 const SIDEBAR_KEY = 'shell_sidebar_collapsed';
 
@@ -35,47 +25,29 @@ const SIDEBAR_KEY = 'shell_sidebar_collapsed';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatSnackBarModule,
     MatTooltipModule,
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayoutComponent implements OnInit, AfterViewInit {
-  private readonly usuarioService = inject(UsuarioService);
-  private readonly router = inject(Router);
-  private readonly snack = inject(MatSnackBar);
+export class MainLayoutComponent implements AfterViewInit {
+  constructor(private readonly router: Router) {}
 
   @ViewChild('sidenavShell') private sidenavShell?: MatSidenavContainer;
-
-  readonly audit = inject(AuditContextService);
-
-  readonly usuarios = signal<UsuarioRead[]>([]);
 
   /** Menú lateral estrecho (solo iconos) o ancho (icono + texto). */
   readonly sidebarCollapsed = signal(
     typeof localStorage !== 'undefined' && localStorage.getItem(SIDEBAR_KEY) === '1',
   );
 
- readonly nav = [
-  { path: 'usuarios', label: 'Usuarios', icon: 'people' },
-  { path: 'profesores', label: 'Profesores', icon: 'school' },
-  { path: 'estudiantes', label: 'Estudiantes', icon: 'groups' },
-  { path: 'grados', label: 'Grados', icon: 'class' },
-  { path: 'materias', label: 'Materias', icon: 'menu_book' },
-  { path: 'notas', label: 'Notas', icon: 'assignment' },
-  { path: 'periodos', label: 'Periodos', icon: 'calendar_month' },
-];
-
-  ngOnInit(): void {
-    this.usuarioService.list().subscribe({
-      next: (rows) => this.usuarios.set(rows),
-      error: (err: HttpErrorResponse) =>
-        this.snack.open(this.msg(err), 'Cerrar', { duration: 5000 }),
-    });
-  }
+  readonly nav = [
+    { path: 'profesores', label: 'Profesores', icon: 'school' },
+    { path: 'estudiantes', label: 'Estudiantes', icon: 'groups' },
+    { path: 'grados', label: 'Grados', icon: 'class' },
+    { path: 'materias', label: 'Materias', icon: 'menu_book' },
+    { path: 'notas', label: 'Notas', icon: 'assignment' },
+    { path: 'periodos', label: 'Periodos', icon: 'calendar_month' },
+  ];
 
   ngAfterViewInit(): void {
     this.syncContentMarginsWithDrawer();
@@ -90,31 +62,24 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     if (!shell) {
       return;
     }
+
     shell.updateContentMargins();
   }
 
   toggleSidebar(): void {
     const next = !this.sidebarCollapsed();
+
     this.sidebarCollapsed.set(next);
     localStorage.setItem(SIDEBAR_KEY, next ? '1' : '0');
+
     queueMicrotask(() => this.syncContentMarginsWithDrawer());
     window.setTimeout(() => this.syncContentMarginsWithDrawer(), 80);
     window.setTimeout(() => this.syncContentMarginsWithDrawer(), 360);
   }
 
-  onUsuarioAudit(id: string): void {
-    this.audit.select(id);
-  }
-
   logout(): void {
-    this.audit.clear();
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_role');
     void this.router.navigateByUrl('/login');
-  }
-
-  private msg(err: HttpErrorResponse): string {
-    const d = err.error?.detail;
-    if (typeof d === 'string') return d;
-    if (Array.isArray(d)) return d.map((x) => x.msg ?? JSON.stringify(x)).join('; ');
-    return err.message;
   }
 }

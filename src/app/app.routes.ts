@@ -13,12 +13,7 @@ export const routes: Routes = [
     canActivate: [auditUserGuard],
     loadComponent: () => import('./features/shell/main-layout').then((m) => m.MainLayoutComponent),
     children: [
-  { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
-  {
-    path: 'usuarios',
-    loadComponent: () =>
-      import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
-  },
+  { path: '', redirectTo: 'profesores', pathMatch: 'full' },
   {
     path: 'profesores',
     loadComponent: () =>

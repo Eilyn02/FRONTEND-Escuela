@@ -1,8 +1,67 @@
 <section class="page">
   <div class="page-header">
-    <h2>Profesores</h2>
-    <button>Nuevo profesor</button>
+    <div>
+      <h2>Profesores</h2>
+      <p>Listado de profesores registrados en el sistema.</p>
+    </div>
+
+    <button mat-flat-button color="primary" type="button" (click)="cargarProfesores()">
+      Actualizar
+    </button>
   </div>
 
-  <p>Listado de profesores registrados en el sistema.</p>
+  @if (loading()) {
+    <div class="center">
+      <mat-spinner diameter="40" />
+    </div>
+  } @else if (profesores().length === 0) {
+    <p class="empty">No hay profesores registrados.</p>
+  } @else {
+    <table mat-table [dataSource]="profesores()" class="table">
+      <ng-container matColumnDef="id_profesor">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.id_profesor }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.nombre }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.apellido }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef>Correo</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.correo }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.especialidad }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let profesor">
+          {{ profesor.telefono || 'Sin teléfono' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  }
 </section>
