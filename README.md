@@ -189,9 +189,13 @@ text
 ### Profesores
 
 - Consulta real de profesores desde la API.
+- Creación de profesores.
+- Edición de profesores.
+- Eliminación de profesores.
+- Validación de restricciones de integridad.
 - Visualización de datos en tabla.
-- Botón para actualizar la información.
-- Envío del token JWT en la petición.
+- Actualización automática del listado.
+- Consumo autenticado mediante JWT.
 
 ### Estudiantes
 
@@ -263,9 +267,9 @@ Authorization: Bearer <token>
 
 9. Cerrar sesión y verificar que las rutas protegidas redirijan al login.
 
-## Video
+## Videos
 
-Enlace al video explicativo:
+Enlace al video explicativo del examen 4:
 
 https://youtu.be/y-eVzgWRpUI
 
@@ -281,11 +285,26 @@ En el video se debe evidenciar:
 - Consulta de estudiantes desde la API.
 - Configuración CORS en el backend.
 
+## Enlace a video FINAL 
+
+https://youtu.be/QWtAi9i8f-Y
+
+## Estado de la entrega
+
+El frontend se encuentra completamente integrado con el backend desplegado en Render.
+
+Funcionalidades implementadas:
+
+- Autenticación JWT.
+- Protección de rutas.
+- Interceptor HTTP.
+- Consulta de profesores.
+- Consulta de estudiantes.
+- CRUD completo de profesores.
+- Consumo de API desplegada en la nube.
+- Despliegue en Firebase Hosting.
+
 ## Integrantes
 
 - Luis Miguel Cardona
 - Eilyn Alvarino
-
-## Estado de la entrega
-
-El frontend queda integrado con el backend para autenticación JWT y consulta de entidades reales del sistema escolar. Se cumple la separación de repositorios entre frontend y backend, y el proyecto queda preparado para la grabación del video explicativo y la entrega final.
